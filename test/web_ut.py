@@ -12,31 +12,33 @@ from selenium.webdriver.chrome.options import Options
 @allure.feature('Test Baidu WebUI')
 class ISelenium(unittest.TestCase):
     # 读入配置文件
-    def get_config(self):
-        config = configparser.ConfigParser()
-        config.read(os.path.join(os.environ['HOME'], 'iselenium.ini'))
-        return config
+    # def get_config(self):
+    #     config = configparser.ConfigParser()
+    #     config.read(os.path.join(os.environ['HOME'], 'iselenium.ini'))
+    #     return config
 
     def tearDown(self):
         self.driver.quit()
 
     def setUp(self):
-        config = self.get_config()
+        # config = self.get_config()
 
         # 控制是否采用无界面形式运行自动化测试
         try:
-            using_headless = os.environ["using_headless"]
+            #using_headless = os.environ["using_headless"]
+            using_headless = False
         except KeyError:
             using_headless = None
             print('没有配置环境变量 using_headless, 按照有界面方式运行自动化测试')
 
-        chrome_options = Options()
-        if using_headless is not None and using_headless.lower() == 'true':
-            print('使用无界面方式运行')
-            chrome_options.add_argument("--headless")
+        # chrome_options = Options()
+        # if using_headless is not None and using_headless.lower() == 'true':
+        #     print('使用无界面方式运行')
+        #     chrome_options.add_argument("--headless")
 
-        self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
-                                       options=chrome_options)
+        # self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
+        #                               options=chrome_options)
+        self.driver = webdriver.Chrome(executable_path="D:/program/selenium/chromedriver.exe")
 
     @allure.story('Test key word 今日头条')
     def test_webui_1(self):
